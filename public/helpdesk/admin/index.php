@@ -577,7 +577,7 @@ function print_login()
                                     <br>
                                     <a href="../" class="link">Send a ticket</a>
                                     <br>
-                                    <a href="../../" class="link">Back to Dashboard</a>
+                                    <a href="https://kopti.takamanu.shop/" class="link">Back to Dashboard</a>
                                 
                                 </div>
                                 
