@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Area Chart
 .chart-area {
   position: relative;
@@ -27,3 +28,34 @@
     height: calc(20rem - 43px) !important;
   }
 }
+=======
+// Area Chart
+.chart-area {
+  position: relative;
+  height: 10rem;
+  width: 100%;
+  @include media-breakpoint-up(md) {
+    height: 20rem;
+  }
+}
+
+// Bar Chart
+.chart-bar {
+  position: relative;
+  height: 10rem;
+  width: 100%;
+  @include media-breakpoint-up(md) {
+    height: 20rem;
+  }
+}
+
+// Pie Chart
+.chart-pie {
+  position: relative;
+  height: 15rem;
+  width: 100%;
+  @include media-breakpoint-up(md) {
+    height: calc(20rem - 43px) !important;
+  }
+}
+>>>>>>> 76bc0105ae19d4376a5f7fe483e3c188e8da3a47
