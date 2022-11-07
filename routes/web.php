@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/bisnis', [BisnisController::class, 'index']);
+
+Route::get('/persediaan', [BisnisController::class, 'stock']);
