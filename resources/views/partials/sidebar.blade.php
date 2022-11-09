@@ -10,7 +10,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
         <a class="nav-link" href="/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
@@ -25,16 +25,16 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="/bisnis" data-toggle="collapse" data-target="#collapseTwo"
+    <li class="nav-item {{ Request::is('transaksi') || Request::is('persediaan') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Perkembangan Bisnis</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/bisnis">Perkembangan Bisnis</a>
-                <a class="collapse-item" href="/persediaan">Stok Barang</a>
+                <a class="collapse-item {{ Request::is('transaksi') ? 'active' : '' }}" href="/transaksi">Transaksi Bisnis</a>
+                <a class="collapse-item {{ Request::is('persediaan') ? 'active' : '' }}" href="/persediaan">Stok Barang</a>
             </div>
         </div>
     </li>

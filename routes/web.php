@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BisnisController;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/bisnis', [BisnisController::class, 'index']);
-
 Route::get('/persediaan', [BisnisController::class, 'stock']);
+
+Route::resource('/transaksi', TransaksiController::class);

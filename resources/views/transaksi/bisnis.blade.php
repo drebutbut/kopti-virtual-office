@@ -1,4 +1,4 @@
-@extends('layouts/main')
+@extends('layouts.main')
 
 @section('container')
     <h2>Perkembangan Bisnis</h2>
@@ -10,11 +10,12 @@
         <div class="summary d-flex justify-content-evenly">
             <div class="card-body">
                 <h5 class="card-title">Saldo dalam bulan {{ $bulan }}</h5>
-                <p class="card-text">Hasil pendapatan bersih dari pemasukan dan pengeluaran pada bulan {{ $bulan }} adalah
+                <p class="card-text">Hasil pendapatan bersih dari pemasukan dan pengeluaran pada bulan {{ $bulan }}
+                    adalah
                 </p>
                 <h2>
-                    @if($saldo < 0)
-                        <strong>-Rp{{ $saldo*(-1) }}</strong>
+                    @if ($saldo < 0)
+                        <strong>-Rp{{ $saldo * -1 }}</strong>
                     @else
                         <strong>Rp{{ $saldo }}</strong>
                     @endif
@@ -24,7 +25,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Tambah Transaksi</h5>
                     <p class="card-text">Catat transaksi yang terjadi hari ini.</p>
-                    <a href="/bisnis/tambah-transaksi" class="btn btn-primary">Tambah Transaksi</a>
+                    <a href="/bisnis/create" class="btn btn-primary">Tambah Transaksi</a>
                 </div>
             </div>
         </div>
@@ -61,7 +62,9 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th scope="col">No</th>
                                 <th scope="col">ID Transaksi</th>
+                                <th scope="col">Tanggal Transaksi</th>
                                 <th scope="col">Nama Produk</th>
                                 <th scope="col">Nama User</th>
                                 <th scope="col">Jenis Transaksi</th>
@@ -73,17 +76,23 @@
                         <tbody>
                             @foreach ($transactions as $transaction)
                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $transaction->id }}</td>
+                                    <td>{{ $transaction->created_at }}</td>
                                     <td>{{ $transaction->produk->nama }}</td>
                                     <td>{{ $transaction->user->name }}</td>
                                     <td>{{ $transaction->jenis_transaksi }}</td>
                                     <td>{{ $transaction->jumlah_transaksi }}</td>
                                     <td>{{ $transaction->total_harga }}</td>
                                     <td>
+                                        <a href="/transaksi/{{ $transaction->id }}" role="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                         <a href="#" role="button" class="btn btn-warning"><i
                                                 class="bi bi-pencil-square"></i></a>
-                                        <a href="#" role="button" class="btn btn-danger"><i
-                                                class="bi bi-trash"></i></a>
+                                        <form action="/bisnis/hapus/{{ $transaction->id }}" method="post" class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data?')"><i class="bi bi-trash"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -97,10 +106,11 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th scope="col">No</th>
                                 <th scope="col">ID Transaksi</th>
+                                <th scope="col">Tanggal Transaksi</th>
                                 <th scope="col">Nama Produk</th>
                                 <th scope="col">Nama User</th>
-                                <th scope="col">Jenis Transaksi</th>
                                 <th scope="col">Jumlah Transaksi</th>
                                 <th scope="col">Total Harga</th>
                                 <th scope="col">Action</th>
@@ -109,17 +119,22 @@
                         <tbody>
                             @foreach ($incomes as $income)
                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $income->id }}</td>
+                                    <td>{{ $income->created_at }}</td>
                                     <td>{{ $income->produk->nama }}</td>
                                     <td>{{ $income->user->name }}</td>
-                                    <td>{{ $income->jenis_transaksi }}</td>
                                     <td>{{ $income->jumlah_transaksi }}</td>
                                     <td>{{ $income->total_harga }}</td>
                                     <td>
+                                        <a href="/transaksi/{{ $income->id }}" role="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                         <a href="#" role="button" class="btn btn-warning"><i
                                                 class="bi bi-pencil-square"></i></a>
-                                        <a href="#" role="button" class="btn btn-danger"><i
-                                                class="bi bi-trash"></i></a>
+                                        <form action="/bisnis/hapus/{{ $income->id }}" method="post" class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data?')"><i class="bi bi-trash"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -133,10 +148,11 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th scope="col">No</th>
                                 <th scope="col">ID Transaksi</th>
+                                <th scope="col">Tanggal Transaksi</th>
                                 <th scope="col">Nama Produk</th>
                                 <th scope="col">Nama User</th>
-                                <th scope="col">Jenis Transaksi</th>
                                 <th scope="col">Jumlah Transaksi</th>
                                 <th scope="col">Total Harga</th>
                                 <th scope="col">Action</th>
@@ -145,17 +161,22 @@
                         <tbody>
                             @foreach ($expenses as $expense)
                                 <tr>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $expense->id }}</td>
+                                    <td>{{ $expense->created_at }}</td>
                                     <td>{{ $expense->produk->nama }}</td>
                                     <td>{{ $expense->user->name }}</td>
-                                    <td>{{ $expense->jenis_transaksi }}</td>
                                     <td>{{ $expense->jumlah_transaksi }}</td>
                                     <td>{{ $expense->total_harga }}</td>
                                     <td>
+                                        <a href="/transaksi/{{ $expense->id }}" role="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
                                         <a href="#" role="button" class="btn btn-warning"><i
                                                 class="bi bi-pencil-square"></i></a>
-                                        <a href="#" role="button" class="btn btn-danger"><i
-                                                class="bi bi-trash"></i></a>
+                                        <form action="/bisnis/hapus/{{ $expense->id }}" method="post" class="d-inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data?')"><i class="bi bi-trash"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
