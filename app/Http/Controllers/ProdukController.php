@@ -38,7 +38,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|max:255|unique',
+            'nama' => 'required|max:255|unique:produks',
             'harga' => 'required',
             'harga_member' => '',
             'stok' => 'required'

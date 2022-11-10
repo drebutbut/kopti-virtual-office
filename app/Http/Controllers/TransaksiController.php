@@ -21,8 +21,8 @@ class TransaksiController extends Controller
 
         // $masuk = \DB::select('SELECT SUM(total_harga) FROM transaksis WHERE jenis_transaksi = "Pembelian"');
         // $keluar = \DB::select('SELECT SUM(total_harga) FROM transaksis WHERE jenis_transaksi = "Penjualan"');
-        $masuk = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->sum('total_harga');
-        $keluar = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->sum('total_harga');
+        $masuk = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->get()->sum('total_harga');
+        $keluar = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->get()->sum('total_harga');
         
         $saldo = $masuk - $keluar;
 
@@ -30,9 +30,9 @@ class TransaksiController extends Controller
             // Transaksi::where('user_id', auth()->user()->id)->get();
 
         return view('transaksi.bisnis', [
-            'transactions' => Transaksi::all(),
-            'incomes' => Transaksi::all()->where('jenis_transaksi', 'Penjualan'),
-            'expenses' => Transaksi::all()->where('jenis_transaksi', 'Pembelian'),
+            'transactions' => Transaksi::where('user_id', auth()->user()->id)->get(),
+            'incomes' => Transaksi::where('user_id', auth()->user()->id)->get()->where('jenis_transaksi', 'Penjualan'),
+            'expenses' => Transaksi::where('user_id', auth()->user()->id)->get()->where('jenis_transaksi', 'Pembelian'),
             'bulan' => $bulan,
             'saldo' => $saldo
         ]);

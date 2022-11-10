@@ -27,42 +27,36 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Andre Butarbutar',
             'email' => 'andrebutar@email.com',
-            'username' => 'andre',
             'password' => bcrypt('password')
         ]);
         
         User::create([
             'name' => 'Fauzan Ali',
             'email' => 'fauzanali@email.com',
-            'username' => 'fauzan',
             'password' => bcrypt('password')
         ]);
         
         User::create([
             'name' => 'Fahmi Ardiansyah',
             'email' => 'fahmiardiansyah@email.com',
-            'username' => 'fahmi',
             'password' => bcrypt('password')
         ]);
         
         User::create([
             'name' => 'Khoirul Anam',
             'email' => 'khoirulanam@email.com',
-            'username' => 'anam',
             'password' => bcrypt('password')
         ]);
         
         User::create([
             'name' => 'Hafidz Amanullah',
             'email' => 'hafidzamanullah@email.com',
-            'username' => 'hafidz',
             'password' => bcrypt('password')
         ]);
         
         User::create([
             'name' => 'Yusuf Muhammad',
             'email' => 'yusuf@email.com',
-            'username' => 'yusuf',
             'password' => bcrypt('password')
         ]);
 
