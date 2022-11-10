@@ -16,10 +16,15 @@ use App\Http\Controllers\TransaksiController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // Route::get('/persediaan', [BisnisController::class, 'stock']);
+Route::middleware(['auth'])->group(function(){
+    Route::resource('/transaksi', TransaksiController::class);
+    Route::resource('/persediaan', ProdukController::class);
+});
 
-Route::resource('/transaksi', TransaksiController::class);
-Route::resource('/persediaan', ProdukController::class);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
