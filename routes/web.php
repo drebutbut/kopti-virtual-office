@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BisnisController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\TransaksiController;
 
 /*
@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/persediaan', [BisnisController::class, 'stock']);
+// Route::get('/persediaan', [BisnisController::class, 'stock']);
 
 Route::resource('/transaksi', TransaksiController::class);
+Route::resource('/persediaan', ProdukController::class);

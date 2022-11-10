@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -44,7 +45,9 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        return view('tambahtransaksi');
+        return view('transaksi.create', [
+            'products' => Produk::all()
+        ]);
     }
 
     /**
@@ -55,7 +58,22 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $validatedData = $request->validate([
+            'jenis_transaksi' => 'required',
+            'produk_id' => 'required',
+            'jumlah_transaksi' => 'required'
+        ]);
+        
+        // $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['user_id'] = mt_rand(1, 7);
+        
+        $produk = Produk::where('id', $validatedData['produk_id'])->get('harga');
+        $validatedData['total_harga'] = $validatedData['jumlah_transaksi'] * $produk[0]->harga;
+        
+        Transaksi::create($validatedData);
+
+        return redirect('/transaksi')->with('success', 'Transaksi telah berhasil ditambahkan');
     }
 
     /**
@@ -104,6 +122,6 @@ class TransaksiController extends Controller
     {
         Transaksi::destroy($transaksi->id);
 
-        return redirect('/bisnis')->with('success', 'Data telah berhasil dihapus!');
+        return redirect('/transaksi')->with('success', 'Data telah berhasil dihapus!');
     }
 }

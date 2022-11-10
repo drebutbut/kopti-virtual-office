@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Tambah Transaksi</h5>
                     <p class="card-text">Catat transaksi yang terjadi hari ini.</p>
-                    <a href="/bisnis/create" class="btn btn-primary">Tambah Transaksi</a>
+                    <a href="/transaksi/create" class="btn btn-primary">Tambah Transaksi</a>
                 </div>
             </div>
         </div>
@@ -35,15 +35,20 @@
     <hr>
 
     <div class="card text-center">
+        @if(session()->has('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <nav class="nav nav-pills nav-fill">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-transaksi-tab" data-bs-toggle="tab" data-bs-target="#nav-transaksi"
-                    type="button" role="tab" aria-controls="nav-transaksi" aria-selected="true">
-                    Transaksi
-                </button>
-
-                <button class="nav-link" id="nav-pemasukan-tab" data-bs-toggle="tab" data-bs-target="#nav-pemasukan"
-                    type="button" role="tab" aria-controls="nav-pemasukan" aria-selected="true">
+                type="button" role="tab" aria-controls="nav-transaksi" aria-selected="true">
+                Transaksi
+            </button>
+            
+            <button class="nav-link" id="nav-pemasukan-tab" data-bs-toggle="tab" data-bs-target="#nav-pemasukan"
+            type="button" role="tab" aria-controls="nav-pemasukan" aria-selected="true">
                     Pemasukan
                 </button>
 
@@ -86,9 +91,8 @@
                                     <td>{{ $transaction->total_harga }}</td>
                                     <td>
                                         <a href="/transaksi/{{ $transaction->id }}" role="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
-                                        <a href="#" role="button" class="btn btn-warning"><i
-                                                class="bi bi-pencil-square"></i></a>
-                                        <form action="/bisnis/hapus/{{ $transaction->id }}" method="post" class="d-inline">
+                                        <a href="#" role="button" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                        <form action="/transaksi/{{ $transaction->id }}" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
                                             <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data?')"><i class="bi bi-trash"></i></button>
@@ -128,9 +132,8 @@
                                     <td>{{ $income->total_harga }}</td>
                                     <td>
                                         <a href="/transaksi/{{ $income->id }}" role="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
-                                        <a href="#" role="button" class="btn btn-warning"><i
-                                                class="bi bi-pencil-square"></i></a>
-                                        <form action="/bisnis/hapus/{{ $income->id }}" method="post" class="d-inline">
+                                        <a href="#" role="button" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                        <form action="/transaksi/{{ $income->id }}" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
                                             <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data?')"><i class="bi bi-trash"></i></button>
@@ -170,9 +173,8 @@
                                     <td>{{ $expense->total_harga }}</td>
                                     <td>
                                         <a href="/transaksi/{{ $expense->id }}" role="button" class="btn btn-info"><i class="bi bi-eye"></i></a>
-                                        <a href="#" role="button" class="btn btn-warning"><i
-                                                class="bi bi-pencil-square"></i></a>
-                                        <form action="/bisnis/hapus/{{ $expense->id }}" method="post" class="d-inline">
+                                        <a href="#" role="button" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                        <form action="/transaksi/{{ $expense->id }}" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
                                             <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data?')"><i class="bi bi-trash"></i></button>
