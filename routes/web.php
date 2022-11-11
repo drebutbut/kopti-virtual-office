@@ -27,11 +27,23 @@ Route::get('/', function () {
 // Route::get('/persediaan', [BisnisController::class, 'stock']);
 Route::middleware(['auth'])->group(function(){
     Route::resource('/transaksi', TransaksiController::class);
+<<<<<<< HEAD
     Route::resource('/persediaan', StockController::class);
     Route::resource('/produk', ProdukController::class);
     Route::get('/katalog', [KatalogController::class, 'index']);
+=======
+    Route::resource('/persediaan', ProdukController::class);
+    
+>>>>>>> 6ac26a7212404fcda1897c73da98690db9461716
 });
 
 Auth::routes();
+
+Route::resource('/helpdesk', HelpdeskController::class);
+
+Route::get('helpdesk', array('as' => 'helpdesk', function()
+{
+    return View::make('helpdesk.index');
+}));
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
