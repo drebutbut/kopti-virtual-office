@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use App\Models\Produk;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -65,13 +66,24 @@ class TransaksiController extends Controller
             'jumlah_transaksi' => 'required'
         ]);
         
-        // $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['user_id'] = mt_rand(1, 7);
+        $validatedData['user_id'] = auth()->user()->id;
         
         $produk = Produk::where('id', $validatedData['produk_id'])->get('harga');
         $validatedData['total_harga'] = $validatedData['jumlah_transaksi'] * $produk[0]->harga;
         
         Transaksi::create($validatedData);
+
+        $stock = Stock::where('user_id', $validatedData['user_id'])->where('produk_id', $validatedData['produk_id'])->get();
+        $stock = $stock[0]['jumlah_barang'];
+
+        if($validatedData['jenis_transaksi'] == 'Penjualan'){
+            $stock = $stock - $validatedData['jumlah_transaksi'];
+        } else {
+            $stock = $stock + $validatedData['jumlah_transaksi'];
+        }
+
+        Stock::where('user_id', $validatedData['user_id'])->where('produk_id', $validatedData['produk_id'])->update(['jumlah_barang' => $stock]);
+        $stock = Stock::where('user_id', $validatedData['user_id'])->where('produk_id', $validatedData['produk_id'])->get();
 
         return redirect('/transaksi')->with('success', 'Transaksi telah berhasil ditambahkan');
     }
@@ -84,6 +96,8 @@ class TransaksiController extends Controller
      */
     public function show(Transaksi $transaksi)
     {
+        // return $transaksi;
+
         return view('transaksi.show', [
             'transaksi' => $transaksi
         ]);

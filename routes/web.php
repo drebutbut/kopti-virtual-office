@@ -1,7 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\BisnisController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\TransaksiController;
 
 /*
@@ -22,7 +27,9 @@ Route::get('/', function () {
 // Route::get('/persediaan', [BisnisController::class, 'stock']);
 Route::middleware(['auth'])->group(function(){
     Route::resource('/transaksi', TransaksiController::class);
-    Route::resource('/persediaan', ProdukController::class);
+    Route::resource('/persediaan', StockController::class);
+    Route::resource('/produk', ProdukController::class);
+    Route::get('/katalog', [KatalogController::class, 'index']);
 });
 
 Auth::routes();
