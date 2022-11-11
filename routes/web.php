@@ -23,8 +23,16 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function(){
     Route::resource('/transaksi', TransaksiController::class);
     Route::resource('/persediaan', ProdukController::class);
+    
 });
 
 Auth::routes();
+
+Route::resource('/helpdesk', HelpdeskController::class);
+
+Route::get('helpdesk', array('as' => 'helpdesk', function()
+{
+    return View::make('helpdesk.index');
+}));
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

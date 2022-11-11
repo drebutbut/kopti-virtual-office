@@ -11,7 +11,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="/home">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -96,7 +96,7 @@
 
     <!-- Nav Item - Tables -->
     <li class="nav-item">
-        <a class="nav-link" href="helpdesk/admin/">
+        <a class="nav-link" href="/helpdesk">
             <i class="fas fa-fw fa-table"></i>
             <span>CRM</span></a>
     </li>

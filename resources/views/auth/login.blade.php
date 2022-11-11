@@ -34,12 +34,12 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Login Dashboard Admin Kopti Salatiga</h1>
                                     </div>
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert">
@@ -48,7 +48,7 @@
                                                 @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" id="password" class="form-control form-control-user"
+                                            <input type="password" id="password" class="form-control form-control-user" placeholder="Password"
                                             name="password" required autocomplete="current-password">
                                         </div>
                                         <div class="form-group">
@@ -59,24 +59,25 @@
                                                         {{ __('Remember Me') }}
                                             </div>
                                         </div>
+                                        <hr>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             {{ __('Login') }}
                                         </button>
                                         <hr>
-                                        {{-- <a href="index.html" class="btn btn-google btn-user btn-block">
+                                        {{-- <a href="#" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
                                         </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                        <a href="#" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                         </a> --}}
                                     </form>
-                                    <hr>
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                    @endif
-                                    <br>
+                                    
+                                    <!--@if (Route::has('password.request'))-->
+                                    <!--    <a class="btn btn-link" href="{{ route('password.request') }}">-->
+                                    <!--        {{ __('Forgot Your Password?') }}-->
+                                    <!--    </a>-->
+                                    <!--@endif-->
+                                    
                                     @if (Route::has('register'))
                                         <a class="btn btn-link" href="{{ route('register') }}">{{ __('Create an Account') }}</a>
                                     @endif
