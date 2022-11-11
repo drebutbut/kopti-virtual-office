@@ -10,12 +10,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-<<<<<<< HEAD
     <li class="nav-item {{ Request::is('/home') ? 'active' : '' }}">
-=======
-    <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
->>>>>>> 6ac26a7212404fcda1897c73da98690db9461716
-        <a class="nav-link" href="/home">
+        <a class="nav-link {{ Request::is('/home') ? 'active' : '' }}" href="/home">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
