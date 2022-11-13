@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\AgenController;
-=======
-use Illuminate\Support\Facades\Auth;
->>>>>>> 98171a5cfbe7fae72d6c8327082bbeb58e89fa29
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StockController;
@@ -44,18 +40,13 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function(){
     Route::resource('/transaksi', TransaksiController::class);
-<<<<<<< HEAD
     Route::resource('/persediaan', ProdukController::class);
     Route::resource('/agen', AgenController::class);
-    Route::resource('/register', RegistersUsers::class);
-    
-    
-=======
     Route::resource('/persediaan', StockController::class);
     Route::resource('/produk', ProdukController::class);
     Route::get('/katalog', [KatalogController::class, 'index']);
-
->>>>>>> 98171a5cfbe7fae72d6c8327082bbeb58e89fa29
+    Route::resource('/register', RegistersUsers::class);
+    
 });
 
 Auth::routes();

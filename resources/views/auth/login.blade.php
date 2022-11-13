@@ -63,7 +63,7 @@
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             {{ __('Login') }}
                                         </button>
-                                        <hr>
+                                        
                                         {{-- <a href="#" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
                                         </a>
@@ -78,9 +78,9 @@
                                     <!--    </a>-->
                                     <!--@endif-->
                                     
-                                    @if (Route::has('register'))
+                                    {{-- @if (Route::has('register'))
                                         <a class="btn btn-link" href="{{ route('register') }}">{{ __('Create an Account') }}</a>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
                         </div>
