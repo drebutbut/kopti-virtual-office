@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AgenController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\TransaksiController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,19 +23,26 @@ Route::get('/', function () {
 });
 
 // Route::get('/persediaan', [BisnisController::class, 'stock']);
+// Route::prefix('admin')->middleware(['auth', 'admin'])->group(function(){
+
+// Route::prefix('persediaan')->middleware('auth')->group(function(){
+//     Route::resource('/transaksi', TransaksiController::class);
+//     Route::resource('/persediaan', ProdukController::class);
+//     Route::resource('/agen', AgenController::class);
+
+// });
+    
+// });
+
 Route::middleware(['auth'])->group(function(){
     Route::resource('/transaksi', TransaksiController::class);
     Route::resource('/persediaan', ProdukController::class);
+    Route::resource('/agen', AgenController::class);
+    Route::resource('/register', RegistersUsers::class);
+    
     
 });
 
 Auth::routes();
-
-Route::resource('/helpdesk', HelpdeskController::class);
-
-Route::get('helpdesk', array('as' => 'helpdesk', function()
-{
-    return View::make('helpdesk.index');
-}));
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
