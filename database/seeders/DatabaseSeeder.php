@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
+use App\Models\Stock;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use Illuminate\Database\Seeder;
@@ -119,16 +120,86 @@ class DatabaseSeeder extends Seeder
         Produk::create([
             'nama' => 'Tempe',
             'harga' => 5000,
-            'harga_member' => 3000,
-            'stok' => 200
+            'harga_member' => 3000
         ]);
         
         Produk::create([
             'nama' => 'Tahu',
             'harga' => 5000,
-            'harga_member' => 3000,
-            'stok' => 200
+            'harga_member' => 3000
         ]);
 
+        Stock::create([
+            'user_id' => 1,
+            'produk_id' => 1,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 1,
+            'produk_id' => 2,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 2,
+            'produk_id' => 1,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 2,
+            'produk_id' => 2,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 3,
+            'produk_id' => 1,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 3,
+            'produk_id' => 2,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 4,
+            'produk_id' => 1,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 4,
+            'produk_id' => 2,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 5,
+            'produk_id' => 1,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 5,
+            'produk_id' => 2,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 6,
+            'produk_id' => 1,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
+        Stock::create([
+            'user_id' => 6,
+            'produk_id' => 2,
+            'jumlah_barang' => mt_rand(50, 150)
+        ]);
+        
     }
 }

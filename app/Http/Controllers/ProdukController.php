@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\User;
+use App\Models\Stock;
+use App\Http\Controllers\DB;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -14,8 +17,9 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        return view('persediaan.stock', [
-            'products' => Produk::all()
+        return view('produk.produk', [
+            // 'products' => Produk::all()->paginate(10)
+            'products' => \DB::table('produks')->paginate(10)
         ]);
     }
 
@@ -26,7 +30,7 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        return view('persediaan.create');
+        return view('produk.create');
     }
 
     /**
@@ -38,15 +42,27 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|max:255|unique:produks',
+            'nama' => 'required|unique:produks',
             'harga' => 'required',
-            'harga_member' => '',
-            'stok' => 'required'
+            'harga_member' => 'nullable'
         ]);
 
         Produk::create($validatedData);
 
-        return redirect('/persediaan')->with('success', 'Produk berhasil ditambahkan');
+        $users = User::all();
+        $idBaru = Produk::latest('id')->first();
+        
+        foreach($users as $user){
+            $produkBaru = [
+                'produk_id' => $idBaru->id,
+                'user_id' => $user->id,
+                'jumlah_barang' => 0
+            ];
+
+            Stock::create($produkBaru);
+        }
+
+        return redirect('/produk')->with('success', 'Produk telah berhasil ditambahkan');
     }
 
     /**
@@ -57,11 +73,7 @@ class ProdukController extends Controller
      */
     public function show(Produk $produk)
     {
-        return $produk;
-
-        return view('persediaan.show', [
-            'product' => $produk
-        ]);
+        //
     }
 
     /**
@@ -96,7 +108,8 @@ class ProdukController extends Controller
     public function destroy(Produk $produk)
     {
         Produk::destroy($produk->id);
+        Stock::where('produk_id', $produk->id)->delete();
 
-        return redirect('/persediaan')->with('success', 'Data telah berhasil dihapus');
+        return redirect('/produk')->with('success', 'Data telah berhasil dihapus!');
     }
 }
