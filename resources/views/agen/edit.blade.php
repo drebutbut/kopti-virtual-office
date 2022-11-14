@@ -8,11 +8,11 @@
                 @method("PATCH")
                 <input type="hidden" name="id" id="id" value="{{$agen->id}}" id="id" />
                 <label>Name</label><br>
-                <input type="text" name="name" id="name" value="{{$agen->name}}" class="form-control"></br>
+                <input type="text" name="name" id="name" value="{{$agen->name}}" class="form-control">
                 <label>Email</label><br>
-                <input type="email" name="email" id="email" value="{{$agen->email}}" class="form-control"></br>
+                <input type="email" name="email" id="email" value="{{$agen->email}}" class="form-control">
                 <label>Password</label><br>
-                <input type="password" name="password" id="password" value="{{$agen->password}}" class="form-control"></br>
+                <input type="password" name="password" id="password" value="{{$agen->password}}" class="form-control">
                 <input type="submit" value="Update" class="btn btn-success"><br>
             </form>
         </div>

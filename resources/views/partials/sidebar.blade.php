@@ -40,7 +40,7 @@
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item {{ Request::is('agen') || Request::is('agen/create') || Request::is('agen/*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-wrench"></i>
@@ -50,8 +50,8 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Fitur Keagenan:</h6>
-                <a class="collapse-item" href="{{ url('/agen/create') }}">Tambah Agen</a>
-                <a class="collapse-item" href="/agen">Daftar Agen</a>
+                <a class="collapse-item {{ Request::is('agen/create') ? 'active' : '' }}" href="{{ url('/agen/create') }}">Tambah Agen</a>
+                <a class="collapse-item {{ Request::is('agen') or Request::is('agen/[1-99999]')  ? 'active' : '' }}" href="/agen">Daftar Agen</a>
             </div>
         </div>
     </li>

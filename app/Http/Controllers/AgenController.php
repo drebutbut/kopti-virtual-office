@@ -126,6 +126,6 @@ class AgenController extends Controller
     public function destroy($id)
     {
         Agen::destroy($id);
-        return redirect('agen')->with('flash_message', 'Users deleted!');
+        return redirect('agen')->with('status', 'Member berhasil dihapus!');
     }
 }

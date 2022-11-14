@@ -35,7 +35,6 @@ trait RegistersUsers
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-
         
         // $this->guard()->login($user);
 
@@ -45,7 +44,7 @@ trait RegistersUsers
 
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
+                    : redirect($this->redirectPath())->with('status', 'Sukses menambahkan member baru!');
     }
 
     /**

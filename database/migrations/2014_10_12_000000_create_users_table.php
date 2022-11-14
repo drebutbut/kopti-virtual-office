@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('role');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('kepunyaan');
             $table->rememberToken();
             $table->timestamps();
         });

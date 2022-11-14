@@ -9,10 +9,10 @@
                         <h2>Daftar Agen</h2>
                     </div>
                     <div class="card-body">
-                        <a href="{{ url('/agen/create') }}" class="btn btn-success btn-sm" title="Add New Agen">
+                        <a href="{{ url('/agen/create') }}" class="btn btn-success btn-sm float-left" title="Add New Agen">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
-                        <form method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <form method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search float-right">
                             <div class="input-group">
                                 <input type="text" class="form-control bg-light border-0 small" name="cari" id="cari" placeholder="Search for..."
                                 value={{ $cari }}>
@@ -24,6 +24,11 @@
                             </div>
                         </form>
                         <br><br>
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -45,7 +50,13 @@
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->created_at }}</td>
                                         {{-- <td>{{ $item->updated_at }}</td> --}}
-                                        <td>{{ $item->role }}</td>
+                                        {{-- <td>{{ $item->role }}</td> --}}
+                                        @if($item->role =='1') 
+                                            <td>Admin</td>
+                                        @else
+                                            <td>Member</td>
+                                        
+                                        @endif
                                         <td>
                                             <a href="{{ url('/agen/' . $item->id) }}" title="View Agen"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             {{-- <a href="{{ url('/agen/' . $item->id . '/edit') }}" title="Edit Agen"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a> --}}
