@@ -8,7 +8,6 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\BisnisController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KatalogController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -47,7 +46,6 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/produk', ProdukController::class);
     Route::get('/katalog', [KatalogController::class, 'index']);
     Route::resource('/register', RegistersUsers::class);
-    
 });
 
 Auth::routes();
