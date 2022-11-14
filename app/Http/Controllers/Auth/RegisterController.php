@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Models\Agen;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Stock;
+use App\Models\Produk;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -64,11 +67,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
         
+        $products = Produk::all();
+        $idBaru = User::latest('id')->first();
+        
+        foreach($products as $product) {
+            $stock = [
+                'produk_id' => $product->id,
+                'user_id' => $idBaru->id,
+                'jumlah_barang' => 0
+            ];
+
+
+            Stock::create($stock);
+        }
+
+        // Agen::create($input);
+        return redirect('agen')->with('flash_message', 'Users Added!');
     }
 }

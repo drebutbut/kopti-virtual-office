@@ -52,7 +52,7 @@ class ProdukController extends Controller
         $users = User::all();
         $idBaru = Produk::latest('id')->first();
         
-        foreach($users as $user){
+        foreach($users as $user) {
             $produkBaru = [
                 'produk_id' => $idBaru->id,
                 'user_id' => $user->id,

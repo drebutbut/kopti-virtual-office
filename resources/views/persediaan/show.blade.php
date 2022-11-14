@@ -1,24 +1,20 @@
 @extends('layouts.main')
 
 @section('container')
-    <h2>{{ $stock->id }}</h2>
+    <h2>{{ $stock->produk->nama }}</h2>
 
     <table class="table table-striped">
         <tr>
             <th>ID Produk</th>
-            <td>{{ $stock->user->id }}</td>
-        </tr>
-        <tr>
-            <th>Nama Produk</th>
-            <td>{{ $stock->nama }}</td>
+            <td>{{ $stock->produk->id }}</td>
         </tr>
         <tr>
             <th>Harga</th>
-            <td>{{ $stock->harga }}</td>
+            <td>{{ $stock->produk->harga }}</td>
         </tr>
         <tr>
             <th>Harga Member</th>
-            <td>{{ $stock->harga_member }}</td>
+            <td>{{ $stock->produk->harga_member }}</td>
         </tr>
         <tr>
             <th>Stock</th>

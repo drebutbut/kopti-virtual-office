@@ -22,8 +22,8 @@ class TransaksiController extends Controller
 
         // $masuk = \DB::select('SELECT SUM(total_harga) FROM transaksis WHERE jenis_transaksi = "Pembelian"');
         // $keluar = \DB::select('SELECT SUM(total_harga) FROM transaksis WHERE jenis_transaksi = "Penjualan"');
-        $masuk = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->get()->sum('total_harga');
-        $keluar = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->get()->sum('total_harga');
+        $masuk = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_harga');
+        $keluar = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_harga');
         
         $saldo = $masuk - $keluar;
 
@@ -59,7 +59,6 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        
         $validatedData = $request->validate([
             'jenis_transaksi' => 'required',
             'produk_id' => 'required',
@@ -67,14 +66,19 @@ class TransaksiController extends Controller
         ]);
         
         $validatedData['user_id'] = auth()->user()->id;
-        
+     
         $produk = Produk::where('id', $validatedData['produk_id'])->get('harga');
         $validatedData['total_harga'] = $validatedData['jumlah_transaksi'] * $produk[0]->harga;
         
-        Transaksi::create($validatedData);
-
         $stock = Stock::where('user_id', $validatedData['user_id'])->where('produk_id', $validatedData['produk_id'])->get();
-        $stock = $stock[0]['jumlah_barang'];
+        $stock = $stock[0]['jumlah_transaksi'];
+
+        if($stock < $validatedData['jumlah_transaksi'] && $validatedData['jenis_transaksi'] == 'Penjualan') {
+            return redirect('/transaksi')->with('fail', 'Stock tidak mencukupi. Silahkan tambah stock produk anda.');
+        }
+
+        Transaksi::create($validatedData);
+        
 
         if($validatedData['jenis_transaksi'] == 'Penjualan'){
             $stock = $stock - $validatedData['jumlah_transaksi'];
