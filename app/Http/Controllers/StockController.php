@@ -58,8 +58,10 @@ class StockController extends Controller
      * @param  \App\Models\Stock  $stock
      * @return \Illuminate\Http\Response
      */
-    public function show(Stock $stock)
+    public function show(Stock $stock, $id)
     {
+        $stock = Stock::find($id);
+
         return view('persediaan.show', [
             'stock' => $stock
         ]);

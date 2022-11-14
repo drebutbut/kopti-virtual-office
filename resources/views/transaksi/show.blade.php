@@ -2,6 +2,7 @@
 
 @section('container')
     <h2>Transaksi {{ $transaksi->id }}</h2>
+    <p>{{ $transaksi->created_at->format('D, d F Y H:i:s') }}</p>
 
     <table class="table table-striped">
         <tr>

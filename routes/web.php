@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\AgenController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AgenController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\BisnisController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransaksiController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 /*

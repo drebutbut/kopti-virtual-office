@@ -40,6 +40,11 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if(session()->has('fail'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('fail') }}
+            </div>
+        @endif
         <nav class="nav nav-pills nav-fill">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active" id="nav-transaksi-tab" data-bs-toggle="tab" data-bs-target="#nav-transaksi"
