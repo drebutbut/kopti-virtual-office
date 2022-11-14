@@ -12,6 +12,17 @@
                         <a href="{{ url('/agen/create') }}" class="btn btn-success btn-sm" title="Add New Agen">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
+                        <form method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small" name="cari" id="cari" placeholder="Search for..."
+                                    aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                         <br><br>
                         <div class="table-responsive">
                             <table class="table">
@@ -21,19 +32,19 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Tanggal Dibuat</th>
-                                        <th>Tanggal Diupdate</th>
+                                        {{-- <th>Tanggal Diupdate</th> --}}
                                         <th>Role</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($agen as $item)
+                                @foreach($agen as $key => $item)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $agen->firstItem() + $key }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->updated_at }}</td>
+                                        {{-- <td>{{ $item->updated_at }}</td> --}}
                                         <td>{{ $item->role }}</td>
                                         <td>
                                             <a href="{{ url('/agen/' . $item->id) }}" title="View Agen"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
@@ -48,6 +59,16 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    Showing {{ $agen->firstItem() }} to {{ $agen->lastItem() }} of {{ $agen->total() }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{-- {{ $siswa->links() }} --}}
+                                    {{ $agen->links()}}
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

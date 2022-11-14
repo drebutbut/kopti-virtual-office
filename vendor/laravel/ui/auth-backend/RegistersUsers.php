@@ -6,6 +6,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Agen;
+
 
 trait RegistersUsers
 {
@@ -19,7 +21,7 @@ trait RegistersUsers
     public function showRegistrationForm()
     {
         
-        return view('auth.register');
+        return redirect('/agen/create');
     }
 
     /**

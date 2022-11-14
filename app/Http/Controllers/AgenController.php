@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Agen;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 date_default_timezone_set('Asia/Jakarta');
 
@@ -19,8 +20,29 @@ class AgenController extends Controller
     public function index()
     {
         //
-        $agen = Agen::all();
-        return view ('agen.index')->with('agen', $agen);
+        // return view('user.index', [
+        //     'users' => DB::table('users')->paginate(15)
+        // ]);
+//         $cari = $request->query('cari');
+
+//         if(!empty($cari)){
+//             $datauser = Mahasiswa::where('nama','like',"%".$cari."%")
+//                 ->sortable()
+//                 ->paginate(5);
+// //            dd($datauser);
+//         }else{
+//             $datauser = Mahasiswa::sortable()->paginate(5);
+//         }
+//         return view('mahasiswa.index')->with([
+//             'siswa' => $datauser,
+//             'cari' => $cari,
+//         ]);
+
+        $dataagen = Agen::paginate(5);
+        return view ('agen.index')->with([
+            'agen' => $dataagen,
+
+        ]);
     }
 
     /**
