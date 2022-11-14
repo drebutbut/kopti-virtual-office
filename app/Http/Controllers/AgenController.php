@@ -17,26 +17,26 @@ class AgenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         // return view('user.index', [
         //     'users' => DB::table('users')->paginate(15)
         // ]);
-//         $cari = $request->query('cari');
+        $cari = $request->query('cari');
 
-//         if(!empty($cari)){
-//             $datauser = Mahasiswa::where('nama','like',"%".$cari."%")
-//                 ->sortable()
-//                 ->paginate(5);
-// //            dd($datauser);
-//         }else{
-//             $datauser = Mahasiswa::sortable()->paginate(5);
-//         }
-//         return view('mahasiswa.index')->with([
-//             'siswa' => $datauser,
-//             'cari' => $cari,
-//         ]);
+        if(!empty($cari)){
+            $dataagen = Agen::where('name','like',"%".$cari."%")
+                ->sortable()
+                ->paginate(5);
+//
+        }else{
+            $dataagen = Agen::sortable()->paginate(5);
+        }
+        return view('agen.index')->with([
+            'agen' => $dataagen,
+            'cari' => $cari,
+        ]);
 
         $dataagen = Agen::paginate(5);
         return view ('agen.index')->with([
