@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->integer('role')->default(0);
             $table->string('email')->unique();
+            $table->string('avatar')->default('/images/default-avatar.svg');
             $table->string('password');
-            $table->string('kepunyaan')->nullable();
+            // $table->string('kepunyaan')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

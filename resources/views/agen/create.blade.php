@@ -26,7 +26,7 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="p-5">
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group form-outline w-50">
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Nama" autofocus>
@@ -47,6 +47,16 @@
                                         @enderror
                                     </div>
                                     <div class="form-group form-outline w-50">
+                                        <label for="avatar" class="text-md-right">Please upload avatar</label>
+                                        <input id="avatar" type="file" class="form-control @error('avatar') is-invalid @enderror" name="avatar">
+                                        
+                                            @error('avatar')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                    </div>
+                                    <div class="form-group form-outline w-50">
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password">
                                         
                                             @error('password')
@@ -55,6 +65,7 @@
                                                 </span>
                                             @enderror
                                     </div>
+                                    
                                     <div class="form-group form-outline w-50">
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Ulang Password"/>
                                         {{-- <i class="bi bi-eye-slash" id="togglePassword"></i> --}}

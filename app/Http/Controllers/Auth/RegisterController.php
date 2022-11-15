@@ -56,6 +56,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'avatar' => ['sometimes', 'image', 'mimes:jpg,jpeg,bmp,svg,png', 'max:5000'],
         ]);
     }
 
@@ -67,12 +68,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-        
+        if(request()->has('avatar')){
+            $avataruploaded = request()->file('avatar');
+            $avatarname = time() . '.' . $avataruploaded->getClientOriginalExtension();
+            $avatarpath = public_path('/images/');
+            $avataruploaded->move($avatarpath, $avatarname);
+            User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'avatar' => '/images/' . $avatarname,
+            ]);
+        } else {
+            User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+        }
         $products = Produk::all();
         $idBaru = User::latest('id')->first();
         

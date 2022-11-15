@@ -7,6 +7,7 @@ use App\Models\Produk;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
@@ -22,8 +23,8 @@ class TransaksiController extends Controller
 
         // $masuk = \DB::select('SELECT SUM(total_harga) FROM transaksis WHERE jenis_transaksi = "Pembelian"');
         // $keluar = \DB::select('SELECT SUM(total_harga) FROM transaksis WHERE jenis_transaksi = "Penjualan"');
-        $masuk = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_harga');
-        $keluar = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_harga');
+        $masuk = DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_harga');
+        $keluar = DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->month)->get()->sum('total_harga');
         
         $saldo = $masuk - $keluar;
 

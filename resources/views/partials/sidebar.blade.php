@@ -81,7 +81,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link collapsed {{ Request::is('profil') ? 'active' : '' }}" href="/profile">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Profil</span></a>
     </li>

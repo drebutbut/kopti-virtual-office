@@ -10,6 +10,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/produk', ProdukController::class);
     Route::get('/katalog', [KatalogController::class, 'index']);
     Route::resource('/register', RegistersUsers::class);
+    Route::resource('/profile', ProfileController::class);
 });
 
 Auth::routes();

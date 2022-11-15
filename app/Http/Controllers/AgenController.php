@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Agen;
-use App\Models\Stock;
-use App\Models\Produk;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
@@ -75,20 +73,6 @@ class AgenController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->newPassword),
         ]);
-
-        // $products = Produk::all();
-        // $idBaru = Agen::latest('id')->first();
-        
-        // foreach($products as $product) {
-        //     $stock = [
-        //         'produk_id' => $product->id,
-        //         'user_id' => $idBaru->id,
-        //         'jumlah_barang' => 0
-        //     ];
-
-
-        //     Stock::create($stock);
-        // }
 
         // Agen::create($input);
         return redirect('agen')->with('flash_message', 'Users Added!');
