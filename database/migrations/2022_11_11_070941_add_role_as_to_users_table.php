@@ -15,8 +15,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('role')->default('0');
-            $table->integer('kepunyaan')->default(Auth::user()->name);
+            // $table->integer('role')->default(0);
+            // $table->integer('kepunyaan')->default(Auth::user()->name);
         });
     }
 

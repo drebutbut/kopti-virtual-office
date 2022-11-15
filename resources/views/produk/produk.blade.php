@@ -3,19 +3,18 @@
 @section('container')
     <h2>Informasi Produk</h2>
     <hr>
-    <div class="card">
+    <div class="card d-flex mb-3">
         <a href="/produk/create" class="btn btn-primary">Tambah Produk</a>
-        <div class="card-body">
-            @if (session()->has('success'))
-                <br>
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-        </div>
     </div>
 
-    <br>
+    @if (session()->has('success'))
+        <div class="card-body">
+            <br>
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
 
     <table class="table table-striped">
         <thead>
@@ -40,7 +39,9 @@
                         <form action="/produk/{{ $product->id }}" method="post" class="d-inline">
                             @method('delete')
                             @csrf
-                            <button class="btn btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus data?')"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-danger"
+                                onclick="return confirm('Apakah anda yakin akan menghapus data?')"><i
+                                    class="bi bi-trash"></i></button>
                         </form>
                     </td>
                 </tr>

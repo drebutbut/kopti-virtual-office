@@ -71,7 +71,7 @@ class TransaksiController extends Controller
         $validatedData['total_harga'] = $validatedData['jumlah_transaksi'] * $produk[0]->harga;
         
         $stock = Stock::where('user_id', $validatedData['user_id'])->where('produk_id', $validatedData['produk_id'])->get();
-        $stock = $stock[0]['jumlah_transaksi'];
+        $stock = $stock[0]->jumlah_barang;
 
         if($stock < $validatedData['jumlah_transaksi'] && $validatedData['jenis_transaksi'] == 'Penjualan') {
             return redirect('/transaksi')->with('fail', 'Stock tidak mencukupi. Silahkan tambah stock produk anda.');
