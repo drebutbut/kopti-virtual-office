@@ -101,12 +101,12 @@ class HomeController extends Controller
             $enamBulanPemasukan->sum('total_harga')
         ];
         $keluarBulan = [
-            $satuBulanPengeluaran->sum('total_harga'),
-            $duaBulanPengeluaran->sum('total_harga'),
-            $tigaBulanPengeluaran->sum('total_harga'),
-            $empatBulanPengeluaran->sum('total_harga'),
-            $limaBulanPengeluaran->sum('total_harga'),
-            $enamBulanPengeluaran->sum('total_harga')
+            $satuBulanPengeluaran->sum('total_harga') * -1,
+            $duaBulanPengeluaran->sum('total_harga') * -1,
+            $tigaBulanPengeluaran->sum('total_harga') * -1,
+            $empatBulanPengeluaran->sum('total_harga') * -1,
+            $limaBulanPengeluaran->sum('total_harga') * -1,
+            $enamBulanPengeluaran->sum('total_harga') * -1
         ];
 
         $saldoTahun = [$saldoSatuTahun, $saldoDuaTahun, $saldoTigaTahun];
@@ -116,9 +116,9 @@ class HomeController extends Controller
             $tigaTahunPemasukan->sum('total_harga'),
         ];
         $keluarTahun = [
-            $satuTahunPenjualan->sum('total_harga'),
-            $duaTahunPenjualan->sum('total_harga'),
-            $tigaTahunPenjualan->sum('total_harga'),
+            $satuTahunPenjualan->sum('total_harga') * -1,
+            $duaTahunPenjualan->sum('total_harga') * -1,
+            $tigaTahunPenjualan->sum('total_harga') * -1,
         ];
 
         $bulanPenjualan = [
