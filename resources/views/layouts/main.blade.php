@@ -426,27 +426,37 @@
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
-        integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous">
+    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous">
     </script>
+    <!-- Bootstrap core JavaScript-->
 
     <!-- Core plugin JavaScript-->
     <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Core plugin JavaScript-->
 
     <!-- Custom scripts for all pages-->
     <script src="/js/templateadmin.js"></script>
+    <!-- Custom scripts for all pages-->
 
     <!-- Page level plugins -->
     <script src="/vendor/chart.js/Chart.min.js"></script>
+    <!-- Page level plugins -->
 
     <!-- Page level custom scripts -->
     <script src="/js/chart-area-demo.js"></script>
     <script src="/js/chart-pie-demo.js"></script>
-
+    
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+    <!-- Page level custom scripts -->
+
+    <!-- chart.js script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- chart.js script -->
+    @yield('script')
 
 </body>
 

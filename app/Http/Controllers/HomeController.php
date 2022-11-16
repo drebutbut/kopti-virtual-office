@@ -40,6 +40,72 @@ class HomeController extends Controller
         $saldo = $masuk - $keluar;
         $saldoTahunan = $masukTahunan - $keluarTahunan;
 
+        $satuBulanPemasukan = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(0))->get();
+        $duaBulanPemasukan = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(1))->get();
+        $tigaBulanPemasukan = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(2))->get();
+        $empatBulanPemasukan = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(3))->get();
+        $limaBulanPemasukan = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(4))->get();
+        $enamBulanPemasukan = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(5))->get();
+        
+        $satuBulanPengeluaran = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(0))->get();
+        $duaBulanPengeluaran = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(1))->get();
+        $tigaBulanPengeluaran = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(2))->get();
+        $empatBulanPengeluaran = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(3))->get();
+        $limaBulanPengeluaran = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(4))->get();
+        $enamBulanPengeluaran = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereMonth('created_at', Carbon::now()->subMonths(5))->get();
+
+        $saldoSatuBulan = $satuBulanPemasukan->sum('total_harga') - $satuBulanPengeluaran->sum('total_harga');
+        $saldoDuaBulan = $duaBulanPemasukan->sum('total_harga') - $duaBulanPengeluaran->sum('total_harga');
+        $saldoTigaBulan = $tigaBulanPemasukan->sum('total_harga') - $tigaBulanPengeluaran->sum('total_harga');
+        $saldoEmpatBulan = $empatBulanPemasukan->sum('total_harga') - $empatBulanPengeluaran->sum('total_harga');
+        $saldoLimaBulan = $limaBulanPemasukan->sum('total_harga') - $limaBulanPengeluaran->sum('total_harga');
+        $saldoEnamBulan = $enamBulanPemasukan->sum('total_harga') - $enamBulanPengeluaran->sum('total_harga');
+        
+        $dataPembelian = [
+            count($satuBulanPengeluaran), 
+            count($duaBulanPengeluaran), 
+            count($tigaBulanPengeluaran), 
+            count($empatBulanPengeluaran), 
+            count($limaBulanPengeluaran), 
+            count($enamBulanPengeluaran)
+        ];
+        
+        $dataPenjualan = [
+            count($satuBulanPemasukan), 
+            count($duaBulanPemasukan), 
+            count($tigaBulanPemasukan), 
+            count($empatBulanPemasukan), 
+            count($limaBulanPemasukan), 
+            count($enamBulanPemasukan)
+        ];
+
+        $saldoBulan = [$saldoSatuBulan, $saldoDuaBulan, $saldoTigaBulan, $saldoEmpatBulan, $saldoLimaBulan, $saldoEnamBulan];
+        $masukBulan = [
+            $satuBulanPemasukan->sum('total_harga'),
+            $duaBulanPemasukan->sum('total_harga'),
+            $tigaBulanPemasukan->sum('total_harga'),
+            $empatBulanPemasukan->sum('total_harga'),
+            $limaBulanPemasukan->sum('total_harga'),
+            $enamBulanPemasukan->sum('total_harga')
+        ];
+        $keluarBulan = [
+            $satuBulanPengeluaran->sum('total_harga'),
+            $duaBulanPengeluaran->sum('total_harga'),
+            $tigaBulanPengeluaran->sum('total_harga'),
+            $empatBulanPengeluaran->sum('total_harga'),
+            $limaBulanPengeluaran->sum('total_harga'),
+            $enamBulanPengeluaran->sum('total_harga')
+        ];
+
+        $bulanPenjualan = [
+            Carbon::now()->subMonths(0)->format('F'), 
+            Carbon::now()->subMonths(1)->format('F'), 
+            Carbon::now()->subMonths(2)->format('F'), 
+            Carbon::now()->subMonths(3)->format('F'), 
+            Carbon::now()->subMonths(4)->format('F'), 
+            Carbon::now()->subMonths(5)->format('F')
+        ];
+
         return view('welcome', [
             'user' => User::find($userData),
             'bulan' => $bulan,
@@ -47,7 +113,19 @@ class HomeController extends Controller
             'masuk' => $masuk,
             'masukTahunan' => $masukTahunan,
             'saldo' => $saldo,
-            'saldoTahunan' => $saldoTahunan
+            'saldoTahunan' => $saldoTahunan,
+            'dataPenjualan' => $dataPenjualan,
+            'bulanPenjualanSatu' => $bulanPenjualan[0],
+            'bulanPenjualanDua' => $bulanPenjualan[1],
+            'bulanPenjualanTiga' => $bulanPenjualan[2],
+            'bulanPenjualanEmpat' => $bulanPenjualan[3],
+            'bulanPenjualanLima' => $bulanPenjualan[4],
+            'bulanPenjualanEnam' => $bulanPenjualan[5],
+            'penjualan' => json_encode($dataPenjualan, JSON_NUMERIC_CHECK),
+            'pembelian' => json_encode($dataPembelian, JSON_NUMERIC_CHECK),
+            'saldoBulan' => json_encode($saldoBulan, JSON_NUMERIC_CHECK),
+            'masukBulan' => json_encode($masukBulan, JSON_NUMERIC_CHECK),
+            'keluarBulan' => json_encode($keluarBulan, JSON_NUMERIC_CHECK)
         ]);
     }
 }

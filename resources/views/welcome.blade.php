@@ -19,7 +19,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Earnings ({{ $bulan }})</div>
+                                Pemasukan ({{ $bulan }})</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 @if ($masuk < 0)
                                     -Rp{{ $masuk * -1 }}
@@ -43,7 +43,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Earnings ({{ $tahun }})</div>
+                                Pemasukan ({{ $tahun }})</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 @if ($masukTahunan < 0)
                                     -Rp{{ $masukTahunan * -1 }}
@@ -122,8 +122,8 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                    <div class="dropdown no-arrow">
+                    <h6 class="m-0 font-weight-bold text-primary">Grafik Pemasukan dan Pengeluaran</h6>
+                    {{-- <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -136,12 +136,12 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                        <canvas id="saldoChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -152,37 +152,26 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Grafik Penjualan dan Pembelian</h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                             aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Direct
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Social
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Referral
-                        </span>
+                        <canvas id="penjualanChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -190,7 +179,7 @@
     </div>
 
     <!-- Content Row -->
-    <div class="row">
+    {{-- <div class="row">
 
         <!-- Content Column -->
         <div class="col-lg-6 mb-4">
@@ -335,5 +324,149 @@
             </div>
 
         </div>
-    </div>
+    </div> --}}
+
+    {{-- Script Chart --}}
+    {{-- <script>
+        var ctx = document.getElementById('penjualanChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($dataPenjualan->labels) !!},
+                datasets: [
+                    {
+                        label: 'Data Penjualan Bulanan',
+                        backgorundColor: {!! json_encode($dataPenjualan->colors) !!},
+                        data: {!! json_encode($dataPenjualan->dataset) !!},
+                    },
+                ]
+            }
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function(value) {if(value % 1 === 0) {return value;}}
+                    },
+                    scaleLabel: {
+                        display: false
+                    }
+                }]
+            },
+            legend: {
+                labels: {
+                    fontColor: '#122C4B',
+                    fontFamily: 'Montserrat',
+                    padding: 25,
+                    boxWidth: 25,
+                    fontSize: 14,
+                }
+            },
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 10,
+                    top: 0,
+                    bottom: 10
+                }
+            }
+        }
+        )
+    </script> --}}
+    
+    {{-- Script Chart --}}
+
+@endsection
+
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js" integrity="sha512-tQYZBKe34uzoeOjY9jr3MX7R/mo7n25vnqbnrkskGr4D6YOoPYSpyafUAzQVjV6xAozAqUFIEFsCO4z8mnVBXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        var bulan = [
+            '{{ $bulanPenjualanSatu }}',
+            '{{ $bulanPenjualanDua }}',
+            '{{ $bulanPenjualanTiga }}',
+            '{{ $bulanPenjualanEmpat }}',
+            '{{ $bulanPenjualanLima }}',
+            '{{ $bulanPenjualanEnam }}',
+        ];
+
+        var dataPenjualan = {{ $penjualan }};
+        var dataPembelian = {{ $pembelian }};
+        var saldoBulan = {{ $saldoBulan }};
+        var masukBulan = {{ $masukBulan }};
+        var keluarBulan = {{ $keluarBulan }};
+
+        var barChartData = {
+            labels: bulan,
+            datasets: [{
+                label: 'Penjualan Bulanan',
+                backgroundColor: "rgba(0, 0, 255, 0.95)",
+                data: dataPenjualan,
+            },{
+                label: 'Pembelian Bulanan',
+                backgroundColor: "rgba(255, 0, 0, 0.95)",
+                data: dataPembelian
+            }],
+        };
+
+        var barSaldoBulan = {
+            labels: bulan,
+            datasets: [{
+                label: 'Saldo Bulanan',
+                backgroundColor: "rgba(0, 255, 0, 0.95)",
+                data: saldoBulan
+            },{
+                label: 'Pemasukan Bulanan',
+                backgroundColor: "rgba(255, 0, 0, 0.95)",
+                data: masukBulan
+            },{
+                label: 'Pengeluaran Bulanan',
+                backgroundColor: "rgba(0, 0, 255, 0.95)",
+                data: keluarBulan
+            }],
+        };
+
+        var ctx = document.getElementById('penjualanChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: barChartData,
+            option: {
+                elements: {
+                    rectangle: {
+                        borderWidth: 2,
+                        borderColor: 'rgb(0, 255, 0)',
+                        borderSkipped: 'bottom'
+                    }
+                },
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Grafik Penjualan dan Pembelian Bulanan'
+                }
+            }
+        });
+
+        var ctxDua = document.getElementById('saldoChart').getContext('2d');
+        var chartDua = new Chart(ctxDua, {
+            type: 'bar',
+            data: barSaldoBulan,
+            option: {
+                elements: {
+                    rectangle: {
+                        borderWidth: 2,
+                        borderColor: 'rgb(0, 255, 0)',
+                        borderSkipped: 'bottom'
+                    }
+                },
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Grafik Pemasukan dan Pengeluaran Bulanan'
+                }
+            }
+        })
+    </script>
 @endsection
