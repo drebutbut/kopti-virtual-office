@@ -61,6 +61,18 @@ class HomeController extends Controller
         $saldoLimaBulan = $limaBulanPemasukan->sum('total_harga') - $limaBulanPengeluaran->sum('total_harga');
         $saldoEnamBulan = $enamBulanPemasukan->sum('total_harga') - $enamBulanPengeluaran->sum('total_harga');
         
+        $satuTahunPemasukan = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereYear('created_at', Carbon::now()->subYears(0))->get();
+        $duaTahunPemasukan = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereYear('created_at', Carbon::now()->subYears(1))->get();
+        $tigaTahunPemasukan = \DB::table('transaksis')->where('jenis_transaksi', 'Penjualan')->where('user_id', auth()->user()->id)->whereYear('created_at', Carbon::now()->subYears(2))->get();
+        
+        $satuTahunPenjualan = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereYear('created_at', Carbon::now()->subYears(0))->get();
+        $duaTahunPenjualan = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereYear('created_at', Carbon::now()->subYears(1))->get();
+        $tigaTahunPenjualan = \DB::table('transaksis')->where('jenis_transaksi', 'Pembelian')->where('user_id', auth()->user()->id)->whereYear('created_at', Carbon::now()->subYears(2))->get();
+
+        $saldoSatuTahun = $satuTahunPemasukan->sum('total_harga') - $satuTahunPenjualan->sum('total_harga');
+        $saldoDuaTahun = $duaTahunPemasukan->sum('total_harga') - $duaTahunPenjualan->sum('total_harga');
+        $saldoTigaTahun = $tigaTahunPemasukan->sum('total_harga') - $tigaTahunPenjualan->sum('total_harga');
+
         $dataPembelian = [
             count($satuBulanPengeluaran), 
             count($duaBulanPengeluaran), 
@@ -97,6 +109,18 @@ class HomeController extends Controller
             $enamBulanPengeluaran->sum('total_harga')
         ];
 
+        $saldoTahun = [$saldoSatuTahun, $saldoDuaTahun, $saldoTigaTahun];
+        $masukTahun = [
+            $satuTahunPemasukan->sum('total_harga'),
+            $duaTahunPemasukan->sum('total_harga'),
+            $tigaTahunPemasukan->sum('total_harga'),
+        ];
+        $keluarTahun = [
+            $satuTahunPenjualan->sum('total_harga'),
+            $duaTahunPenjualan->sum('total_harga'),
+            $tigaTahunPenjualan->sum('total_harga'),
+        ];
+
         $bulanPenjualan = [
             Carbon::now()->subMonths(0)->format('F'), 
             Carbon::now()->subMonths(1)->format('F'), 
@@ -104,6 +128,12 @@ class HomeController extends Controller
             Carbon::now()->subMonths(3)->format('F'), 
             Carbon::now()->subMonths(4)->format('F'), 
             Carbon::now()->subMonths(5)->format('F')
+        ];
+
+        $tahunPenjualan = [
+            Carbon::now()->subYears(0)->format('Y'),
+            Carbon::now()->subYears(1)->format('Y'),
+            Carbon::now()->subYears(2)->format('Y'),
         ];
 
         return view('welcome', [
@@ -121,11 +151,17 @@ class HomeController extends Controller
             'bulanPenjualanEmpat' => $bulanPenjualan[3],
             'bulanPenjualanLima' => $bulanPenjualan[4],
             'bulanPenjualanEnam' => $bulanPenjualan[5],
+            'tahunPenjualanSatu' => $tahunPenjualan[0],
+            'tahunPenjualanDua' => $tahunPenjualan[1],
+            'tahunPenjualanTiga' => $tahunPenjualan[2],
             'penjualan' => json_encode($dataPenjualan, JSON_NUMERIC_CHECK),
             'pembelian' => json_encode($dataPembelian, JSON_NUMERIC_CHECK),
             'saldoBulan' => json_encode($saldoBulan, JSON_NUMERIC_CHECK),
             'masukBulan' => json_encode($masukBulan, JSON_NUMERIC_CHECK),
-            'keluarBulan' => json_encode($keluarBulan, JSON_NUMERIC_CHECK)
+            'keluarBulan' => json_encode($keluarBulan, JSON_NUMERIC_CHECK),
+            'saldoTahun' => json_encode($saldoTahun, JSON_NUMERIC_CHECK),
+            'masukTahun' => json_encode($masukTahun, JSON_NUMERIC_CHECK),
+            'keluarTahun' => json_encode($keluarTahun, JSON_NUMERIC_CHECK)
         ]);
     }
 }

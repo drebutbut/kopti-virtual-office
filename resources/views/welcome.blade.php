@@ -121,27 +121,72 @@
         <div class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Grafik Pemasukan dan Pengeluaran</h6>
-                    {{-- <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div> --}}
                 </div>
-                <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="saldoChart"></canvas>
+
+                    <nav class="nav nav-pills nav-fill">
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-bulan-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-bulan" type="button" role="tab" aria-controls="nav-bulan"
+                                aria-selected="true">
+                                Bulanan
+                            </button>
+
+                            <button class="nav-link" id="nav-tahun-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-tahun" type="button" role="tab" aria-controls="nav-tahun"
+                                aria-selected="true">
+                                Tahun
+                            </button>
+
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="new-tabContent">
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active p-3" id="nav-bulan" role="tabpanel"
+                                aria-labelledby="nav-bulan-tab">
+                                {{-- <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Dropdown Header:</div>
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div> --}}
+                                <!-- Card Body -->
+                                <div class="chart-area">
+                                    <canvas id="saldoChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade p-3" id="nav-tahun" role="tabpanel"
+                                aria-labelledby="nav-tahun-tab">
+                                {{-- <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Dropdown Header:</div>
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div> --}}
+                                <!-- Card Body -->
+                                <div class="chart-area">
+                                    <canvas id="saldoChartTahun"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -374,14 +419,15 @@
         }
         )
     </script> --}}
-    
-    {{-- Script Chart --}}
 
+    {{-- Script Chart --}}
 @endsection
 
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js" integrity="sha512-tQYZBKe34uzoeOjY9jr3MX7R/mo7n25vnqbnrkskGr4D6YOoPYSpyafUAzQVjV6xAozAqUFIEFsCO4z8mnVBXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.min.js"
+        integrity="sha512-tQYZBKe34uzoeOjY9jr3MX7R/mo7n25vnqbnrkskGr4D6YOoPYSpyafUAzQVjV6xAozAqUFIEFsCO4z8mnVBXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         var bulan = [
@@ -393,11 +439,20 @@
             '{{ $bulanPenjualanEnam }}',
         ];
 
+        var tahun = [
+            '{{ $tahunPenjualanSatu }}',
+            '{{ $tahunPenjualanDua }}',
+            '{{ $tahunPenjualanTiga }}',
+        ]
+
         var dataPenjualan = {{ $penjualan }};
         var dataPembelian = {{ $pembelian }};
         var saldoBulan = {{ $saldoBulan }};
         var masukBulan = {{ $masukBulan }};
         var keluarBulan = {{ $keluarBulan }};
+        var saldoTahun = {{ $saldoTahun }};
+        var masukTahun = {{ $masukTahun }};
+        var keluarTahun = {{ $keluarTahun }};
 
         var barChartData = {
             labels: bulan,
@@ -405,7 +460,7 @@
                 label: 'Penjualan Bulanan',
                 backgroundColor: "rgba(0, 0, 255, 0.95)",
                 data: dataPenjualan,
-            },{
+            }, {
                 label: 'Pembelian Bulanan',
                 backgroundColor: "rgba(255, 0, 0, 0.95)",
                 data: dataPembelian
@@ -418,14 +473,31 @@
                 label: 'Saldo Bulanan',
                 backgroundColor: "rgba(0, 255, 0, 0.95)",
                 data: saldoBulan
-            },{
+            }, {
                 label: 'Pemasukan Bulanan',
                 backgroundColor: "rgba(255, 0, 0, 0.95)",
                 data: masukBulan
-            },{
+            }, {
                 label: 'Pengeluaran Bulanan',
                 backgroundColor: "rgba(0, 0, 255, 0.95)",
                 data: keluarBulan
+            }],
+        };
+
+        var barSaldoTahun = {
+            labels: tahun,
+            datasets: [{
+                label: 'Saldo Tahunan',
+                backgroundColor: "rgba(0, 255, 0, 0.95)",
+                data: saldoTahun
+            }, {
+                label: 'Pemasukan Tahunan',
+                backgroundColor: "rgba(255, 0, 0, 0.95)",
+                data: masukTahun
+            }, {
+                label: 'Pengeluaran Tahunan',
+                backgroundColor: "rgba(0, 0, 255, 0.95)",
+                data: keluarTahun
             }],
         };
 
@@ -467,6 +539,26 @@
                     text: 'Grafik Pemasukan dan Pengeluaran Bulanan'
                 }
             }
-        })
+        });
+
+        var ctxTiga = document.getElementById('saldoChartTahun').getContext('2d');
+        var chartTiga = new Chart(ctxTiga, {
+            type: 'bar',
+            data: barSaldoTahun,
+            option: {
+                elements: {
+                    rectangle: {
+                        borderWidth: 2,
+                        borderColor: 'rgb(0, 255, 0)',
+                        borderSkipped: 'bottom'
+                    }
+                },
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Grafik Pemasukan dan Pengeluaran Tahunan'
+                }
+            }
+        });
     </script>
 @endsection
