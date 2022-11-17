@@ -7,7 +7,7 @@
                 {!! csrf_field() !!}
                 @method("PATCH")
                 <input type="hidden" name="id" id="id" value="{{$agen->id}}" id="id" />
-                <label>Name</label><br>
+                <label>Nama</label><br>
                 <input type="text" name="name" id="name" value="{{$agen->name}}" class="form-control">
                 <label>Email</label><br>
                 <input type="email" name="email" id="email" value="{{$agen->email}}" class="form-control">

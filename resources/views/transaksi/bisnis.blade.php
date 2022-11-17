@@ -27,6 +27,7 @@
                     <h5 class="card-title">Tambah Transaksi</h5>
                     <p class="card-text">Catat transaksi yang terjadi hari ini.</p>
                     <a href="/transaksi/create" class="btn btn-primary">Tambah Transaksi</a>
+                    <a href="#" class = " btn btn-sm btn-flat btn-success btn-filter" ><i class="fa fa-filter"></i>Filter Tanggal</a>
                 </div>
             </div>
         </div>
@@ -58,12 +59,22 @@
                     Pemasukan
                 </button>
 
+
+
                 <button class="nav-link" id="nav-pengeluaran-tab" data-bs-toggle="tab" data-bs-target="#nav-pengeluaran"
                     type="button" role="tab" aria-controls="nav-pengeluaran" aria-selected="true">
                     Pengeluaran
                 </button>
 
-                <a href="#" class = " btn btn-sm btn-flat btn-success btn-filter" ><i class="fa fa-filter"></i>Filter Tanggal</a>
+               
+
+                <br>
+                
+                <form mehtod "post" class="form-inline">
+                    <input type="date" name="tgl_mulai" class="form-control ml-3">
+                    <input type="date" name="tgl_selesai" class="form-control ml-3">
+                    <button type="submit" name="filter_tgl" class="btn btn-info ml-3">Filter</button>
+                </form>
 
 
 
@@ -91,6 +102,21 @@
                             </tr>
                         </thead>
                         <tbody>
+
+{{--  <?php
+
+if(isset($_POST['filter_tgl'])){
+    $mulai = $_POST['tgl_mulai'];
+    $selesai = $_POST['tgl_selesai'];
+    if($mulai=null || $selesai=null){
+        $query = mysqli_query($conn, "SELECT * FROM transaksi");
+    }else{ 
+    $query = mysqli_query($conn, "SELECT * FROM transaksi WHERE tgl_transaksi BETWEEN '$mulai' AND '$selesai'");
+    }
+}
+?>  --}}
+
+
                             @foreach ($transactions as $transaction)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>

@@ -25,7 +25,7 @@
                         </div>
                         
                         <div class="input-group mb-3">
-                            <span class="input-group-text">Name</span>
+                            <span class="input-group-text">Nama</span>
                             <input type="text" aria-label="First name" class="form-control" value="{{$agen->name}}" disabled>
                 
                         </div>
@@ -39,7 +39,7 @@
                             <span class="input-group-text">Password</span>
                             <input type="password" aria-label="First name" class="form-control" value="password123" disabled>
                         </div>
-                        <a href="{{ url('/profile/' . $agen->id . '/edit') }}" class="btn btn-success">Edit
+                        <a href="{{ url('/profile/' . $agen->id . '/edit') }}" class="btn btn-success">Ubah
                         </a>
 
                     </div>
