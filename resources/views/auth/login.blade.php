@@ -30,7 +30,9 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fkoptijakartaselatan.com%2Fwp-content%2Fuploads%2F2014%2F11%2Fkopti.png&f=1&nofb=1&ipt=86c18a8ada38275e1a27f964777591ad06d04050ce5938a3fa51500493b3b724&ipo=images" alt="">
+                            </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">

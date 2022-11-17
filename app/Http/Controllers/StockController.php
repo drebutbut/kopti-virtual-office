@@ -96,9 +96,9 @@ class StockController extends Controller
      * @param  \App\Models\Stock  $stock
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Stock $stock)
+    public function destroy(Stock $stock, $id)
     {
-        Stock::destroy($stock->id);
+        Stock::destroy(id);
 
         return redirect('/persediaan')->with('success', 'Data telah berhasil dihapus');
     }
