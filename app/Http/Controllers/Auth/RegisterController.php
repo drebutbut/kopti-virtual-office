@@ -55,9 +55,14 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'regex:/[a-z]/',  'regex:/[A-Z]/', 'regex:/[0-9]/','confirmed'],
             'avatar' => ['sometimes', 'image', 'mimes:jpg,jpeg,bmp,svg,png', 'max:5000'],
-        ]);
+        ],
+        $messages = [
+            'password.min' => 'Password minimal 6 karakter',
+            'password.required' => ':Password wajib diisi',
+            'password.regex' => ':Password harus mengandung huruf besar, huruf kecil, dan angka',
+           ]);
     }
 
     /**
@@ -88,7 +93,7 @@ class RegisterController extends Controller
         }
         $products = Produk::all();
         $idBaru = User::latest('id')->first();
-        
+
         foreach($products as $product) {
             $stock = [
                 'produk_id' => $product->id,
