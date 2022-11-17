@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaksi;
-use App\Models\Produk;
-use App\Models\Stock;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Stock;
+use App\Models\Produk;
+use App\Models\Transaksi;
+use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Exceptions\Handler;
 
 class TransaksiController extends Controller
 {
@@ -31,6 +34,8 @@ class TransaksiController extends Controller
         // Selanjutnya tambahkan user_id
             // Transaksi::where('user_id', auth()->user()->id)->get();
 
+
+
         return view('transaksi.bisnis', [
             'transactions' => Transaksi::where('user_id', auth()->user()->id)->get(),
             'incomes' => Transaksi::where('user_id', auth()->user()->id)->get()->where('jenis_transaksi', 'Penjualan'),
@@ -39,6 +44,21 @@ class TransaksiController extends Controller
             'saldo' => $saldo
         ]);
     }
+
+    public function waktu(Request $request){
+        try {
+        
+                $dari = $request->dari;
+                $sampai = $request->sampai;
+            $title = "Transaksi Pesanan dari $dari sampai $sampai" ;
+              $data =  Transaksi::whereDate('created_at', '>=' , $dari)->whereDate('created_at', '<=' , $sampai)->orderBy('created_at' , 'desc')->get();
+            return view('transaksi.show', compact('transaksi', 'title'));
+            } catch(\Exception $e) {
+                \Session::flash('gagal', $e->getMessage());
+                return redirect()->back();
+              }
+        }   
+    
 
     /**
      * Show the form for creating a new resource.

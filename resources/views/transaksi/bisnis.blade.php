@@ -6,6 +6,7 @@
     <div class="card">
         <div class="card-header">
             Summary
+
         </div>
         <div class="summary d-flex justify-content-evenly">
             <div class="card-body">
@@ -51,7 +52,7 @@
                 type="button" role="tab" aria-controls="nav-transaksi" aria-selected="true">
                 Transaksi
             </button>
-            
+
             <button class="nav-link" id="nav-pemasukan-tab" data-bs-toggle="tab" data-bs-target="#nav-pemasukan"
             type="button" role="tab" aria-controls="nav-pemasukan" aria-selected="true">
                     Pemasukan
@@ -61,11 +62,17 @@
                     type="button" role="tab" aria-controls="nav-pengeluaran" aria-selected="true">
                     Pengeluaran
                 </button>
+
+                <a href="#" class = " btn btn-sm btn-flat btn-success btn-filter" ><i class="fa fa-filter"></i>Filter Tanggal</a>
+
+
+
             </div>
         </nav>
         <div class="tab-content" id="new-tabContent">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active p-3" id="nav-transaksi" role="tabpanel"
+
                     aria-labelledby="nav-transaksi-tab">
                     <h4>Transaksi Penjualan</h4>
 
@@ -88,7 +95,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $transaction->id }}</td>
-                                    <td>{{ $transaction->created_at }}</td>
+                                    <td>{{ date('d F Y',strtotime($transaction->created_at))  }}</td>
                                     <td>{{ $transaction->produk->nama }}</td>
                                     <td>{{ $transaction->user->name }}</td>
                                     <td>{{ $transaction->jenis_transaksi }}</td>
@@ -104,6 +111,7 @@
                                         </form>
                                     </td>
                                 </tr>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -130,7 +138,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $income->id }}</td>
-                                    <td>{{ $income->created_at }}</td>
+                                    <td>{{ date('d F Y',strtotime($income->created_at)) }}</td>
                                     <td>{{ $income->produk->nama }}</td>
                                     <td>{{ $income->user->name }}</td>
                                     <td>{{ $income->jumlah_transaksi }}</td>
@@ -153,6 +161,7 @@
                 <div class="tab-pane fade p-3" id="nav-pengeluaran" role="tabpanel" aria-labelledby="nav-pengeluaran-tab">
                     <h4>Pengeluaran</h4>
 
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -171,7 +180,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $expense->id }}</td>
-                                    <td>{{ $expense->created_at }}</td>
+                                    <td>{{ date('d F Y',strtotime($expense->created_at)) }}</td>
                                     <td>{{ $expense->produk->nama }}</td>
                                     <td>{{ $expense->user->name }}</td>
                                     <td>{{ $expense->jumlah_transaksi }}</td>
@@ -186,10 +195,80 @@
                                         </form>
                                     </td>
                                 </tr>
+
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
+
+
+
+
+
+
+        <div class="modal fade" id="modal-filter" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+            <div class="modal-dialog modal-default modal-dialog-centered modal-" role="document">
+              <div class="modal-content ">
+       
+                <div class="modal-header">
+                  <h6 class="modal-title" id="modal-title-notification">Your attention is required</h6>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+       
+                <div class="modal-body">
+       
+                    <form role="form" action="{{ url('/transaksi/waktu') }}" method="get">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Dari Tanggal</label>
+                            <input type="text" class="form-control datepicker" id="exampleInputEmail1" placeholder="Dari Tanggal" name="dari" autocomplete="off"
+                            value="{{ date('d-m-Y') }}">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Sampai Tanggal</label>
+                            <input type="text" class="form-control datepicker" id="exampleInputPassword1" placeholder="Sampai Tanggal" name="sampai" autocomplete="off"
+                            value="{{ date('d-m-Y') }}"
+                          </div>
+                         
+                         
+                        </div>
+                        <!-- /.box-body -->
+           
+                        <div class="box-footer">
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                      </form>
+       
+                </div>
+       
+              
+       
+              </div>
+            </div>
+          </div>
+
+
+
+    @endsection
+
+
+    @section('script')
+
+    
+        <script type="text/javascript">
+            $(document).ready(function() {
+                
+                $('.btn-filter').click(function(e){
+                    e.preventDefault();
+                $('#modal-filter').modal('show');
+                    })
+
+                    
+            });
+        </script>
     @endsection

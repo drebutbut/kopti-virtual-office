@@ -41,6 +41,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function(){
     Route::resource('/transaksi', TransaksiController::class);
+    Route::get('/transaksi/waktu', [TransaksiController::class, 'waktu']);
     Route::resource('/persediaan', ProdukController::class);
     Route::resource('/agen', AgenController::class);
     Route::resource('/persediaan', StockController::class);
